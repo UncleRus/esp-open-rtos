@@ -392,6 +392,7 @@ ppTxPkt sdk_ppTxPkt
 ppTxqUpdateBitmap sdk_ppTxqUpdateBitmap
 PPWdtReset sdk_PPWdtReset
 promiscuous_cb sdk_promiscuous_cb
+printf ets_printf
 _putc1 sdk__putc1
 pwctrl_debug sdk_pwctrl_debug
 ram_cal_tos_v60 sdk_ram_cal_tos_v60

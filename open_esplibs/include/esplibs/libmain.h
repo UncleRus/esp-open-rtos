@@ -27,5 +27,7 @@ bool sdk_system_overclock(void);
 bool sdk_system_restoreclock(void);
 uint32_t sdk_system_relative_time(uint32_t reltime);
 
+void system_set_os_print(int enable);
+
 #endif /* _ESPLIBS_LIBMAIN_H */
 

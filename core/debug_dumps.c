@@ -13,6 +13,7 @@
 #include <task.h>
 #include <malloc.h>
 #include <unistd.h>
+#include <stdarg.h>
 
 #include "debug_dumps.h"
 #include "common_macros.h"
@@ -228,4 +229,27 @@ static void abort_handler_inner(uint32_t *caller, uint32_t *sp) {
     dump_stack(sp);
     dump_heapinfo();
     post_crash_reset();
+}
+
+
+/* used to globally enable / disable debug print messages
+ * over the uart. 0 = silent uart, no debug messages.
+ * 1 = debug messages are sent to uart.
+ */
+int ets_printf_enabled = 1; //default to debug messages on
+
+void system_set_os_print(int enable) {
+    ets_printf_enabled = enable;
+}
+
+/* ets_printf override function */
+int IRAM ets_printf(const char *format, ...) {
+    if (ets_printf_enabled == 0) {
+        return 0;
+    }
+    va_list args;
+    va_start(args, format);
+    int ret = vprintf(format, args);
+    va_end(args);
+    return ret;
 }

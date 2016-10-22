@@ -195,6 +195,7 @@ $(foreach component,$(COMPONENTS), 					\
 
 # final linking step to produce .elf
 $(PROGRAM_OUT): $(COMPONENT_ARS) $(SDK_PROCESSED_LIBS) $(LINKER_SCRIPTS)
+	$(Q) $(foreach var,$(COMPONENT_ARS), if [ $(var) != $(BUILD_DIR)program.a ]; then $(OBJCOPY) --redefine-sym printf=ets_printf $(var); fi;)
 	$(vecho) "LD $@"
 	$(Q) $(LD) $(LDFLAGS) -Wl,--start-group $(COMPONENT_ARS) $(LIB_ARGS) $(SDK_LIB_ARGS) -Wl,--end-group -o $@
 
